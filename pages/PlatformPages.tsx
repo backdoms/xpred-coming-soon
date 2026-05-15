@@ -116,16 +116,16 @@ export const Leaderboard: React.FC = () => {
         <div className="bg-[#0A0A0A] border border-white/10 rounded-2xl overflow-hidden opacity-30 pointer-events-none">
           <div className="grid grid-cols-12 gap-4 p-4 border-b border-white/10 text-xs font-bold text-gray-500 uppercase">
             <div className="col-span-1">Rank</div>
-            <div className="col-span-5">Trader</div>
-            <div className="col-span-3 text-right">ROI</div>
-            <div className="col-span-3 text-right">Profit</div>
+            <div className="col-span-5">Predictor</div>
+            <div className="col-span-3 text-right">Accuracy</div>
+            <div className="col-span-3 text-right">Rewards</div>
           </div>
           {[1, 2, 3, 4, 5, 6, 7].map((i) => (
             <div key={i} className="grid grid-cols-12 gap-4 p-4 border-b border-white/5 items-center hover:bg-white/5">
               <div className="col-span-1 font-bold text-white">#{i}</div>
               <div className="col-span-5 flex items-center gap-3">
                 <div className="w-8 h-8 rounded-full bg-gray-700"></div>
-                <span className="text-white font-medium">Trader_{9900 + i}</span>
+                <span className="text-white font-medium">Predictor_{9900 + i}</span>
               </div>
               <div className="col-span-3 text-right text-green-400 font-bold">+{300 - i * 20}%</div>
               <div className="col-span-3 text-right text-brand-gold font-bold">{15000 - i * 1000} XC</div>

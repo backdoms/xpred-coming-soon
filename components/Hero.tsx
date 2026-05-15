@@ -97,8 +97,8 @@ const Hero: React.FC = () => {
             </h1>
 
             <p className="text-xl text-gray-400 mb-10 max-w-lg leading-relaxed font-light">
-              Build your reputation. Share your insights. Monetize your skill.
-              <br />Join the first platform where <strong className="text-brand-blue">Content</strong> meets <strong className="text-brand-gold">Capital</strong>.
+              Build your reputation. Share your insights. Earn with your skill.
+              <br />Join the first platform where <strong className="text-brand-blue">Content</strong> meets <strong className="text-brand-gold">Competition</strong>.
             </p>
 
             <div className="flex flex-col items-start gap-4 mb-12 max-w-md">

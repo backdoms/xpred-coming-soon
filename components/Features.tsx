@@ -23,7 +23,7 @@ const Features: React.FC = () => {
             <span className="text-gray-600">One Professional Platform.</span>
           </motion.h2>
           <p className="text-xl text-gray-400 font-light max-w-2xl">
-            We've separated practice from performance. Hone your strategy risk-free, then deploy capital when you're ready to win real value.
+            We've separated practice from performance. Hone your strategy for free, then use your entries when you're ready to earn real prizes.
           </p>
         </div>
 
@@ -60,7 +60,7 @@ const Features: React.FC = () => {
                     </div>
                     <div>
                       <h4 className="text-white font-bold">Xcoins (Real Value)</h4>
-                      <p className="text-gray-500 text-sm">Monetize your skill. Receive free Xcoins with purchases. Compete in markets to win real redeemable prizes.</p>
+                      <p className="text-gray-500 text-sm">Earn with your skill. Receive free Xcoins with purchases. Compete in markets to earn real redeemable prizes.</p>
                     </div>
                   </div>
                 </div>
@@ -85,9 +85,9 @@ const Features: React.FC = () => {
               <Landmark size={28} />
             </div>
 
-            <h3 className="text-2xl font-bold text-white mb-4">Direct Withdrawals</h3>
+            <h3 className="text-2xl font-bold text-white mb-4">Direct Redemptions</h3>
             <p className="text-gray-400 mb-8">
-              Your winnings are yours. Once your Xcoin balance reaches the minimum threshold ($50 equivalent), request a payout directly to your account.
+              Your prizes are yours. Once your Xcoin balance reaches the minimum threshold ($50 equivalent), request a redemption directly to your account.
             </p>
 
             <div className="flex items-center gap-2 text-xs font-bold text-gray-500 uppercase tracking-wider">
@@ -95,7 +95,7 @@ const Features: React.FC = () => {
             </div>
           </motion.div>
 
-          {/* Feature 3: Copy Trading */}
+          {/* Feature 3: Follow Creators */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -107,7 +107,7 @@ const Features: React.FC = () => {
             </div>
             <h3 className="text-2xl font-bold text-white mb-3">Follow Top Creators</h3>
             <p className="text-gray-500 text-sm leading-relaxed">
-              Connect with the best analysts. Follow the top 1% on the leaderboard, subscribe to their innovative strategies, and learn from their winning predictions.
+              Connect with the best analysts. Follow the top 1% on the leaderboard, subscribe to their innovative strategies, and learn from their successful predictions.
             </p>
           </motion.div>
 
@@ -125,7 +125,7 @@ const Features: React.FC = () => {
                 </div>
                 <h3 className="text-2xl font-bold text-white mb-3">Monthly Tournaments</h3>
                 <p className="text-gray-500 text-sm leading-relaxed">
-                  Even if you trade small, you can win big. Highest ROI% traders each month win bonus Xcoin allocations from the platform pool.
+                  Even if you predict small, you can earn big. Highest accuracy predictors each month receive bonus Xcoin allocations from the platform pool.
                 </p>
               </div>
 

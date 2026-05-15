@@ -35,8 +35,8 @@ const HowItWorks: React.FC = () => {
                         },
                         {
                             icon: <Landmark size={28} />,
-                            title: "Monetize Skill",
-                            desc: "Turn your accuracy into earnings. Redeem your won Xcoins for real cash prizes directly to your bank account.",
+                            title: "Earn Rewards",
+                            desc: "Turn your accuracy into prizes. Redeem your earned Xcoins for real sweepstakes rewards directly to your account.",
                             step: "03"
                         }
                     ].map((item, i) => (

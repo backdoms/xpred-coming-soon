@@ -17,7 +17,7 @@ const Footer: React.FC = () => {
             </div>
             <p className="text-gray-500 text-sm leading-relaxed mb-6">
               The skill-based social prediction market. <br />
-              Analyze. Predict. Profit.
+              Analyze. Predict. Earn.
             </p>
             <div className="flex gap-4">
               <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white hover:bg-white/20 transition-colors"><Twitter size={18} /></a>
@@ -51,7 +51,7 @@ const Footer: React.FC = () => {
         <div className="border-t border-white/[0.08] pt-10 flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="text-gray-600 text-xs flex items-center gap-2">
             <Shield size={14} />
-            <span>18+ | Skill-based trading platform. Not a gambling site.</span>
+            <span>18+ | Skill-based sweepstakes prediction platform.</span>
           </div>
           <div className="text-gray-600 text-xs">
             &copy; {new Date().getFullYear()} Xpred Inc. All rights reserved.
