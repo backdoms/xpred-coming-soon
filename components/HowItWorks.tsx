@@ -13,7 +13,7 @@ const HowItWorks: React.FC = () => {
                     <h2 className="text-4xl md:text-6xl font-bold text-white font-display mb-4">
                         How It Works
                     </h2>
-                    <p className="text-gray-500 text-lg">Simple deposits. Skill-based outcomes. Fast withdrawals.</p>
+                    <p className="text-gray-500 text-lg">Simple entries. Skill-based outcomes. Direct redemptions.</p>
                 </div>
 
                 <div className="grid md:grid-cols-3 gap-8 md:gap-12 relative">
