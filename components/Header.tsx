@@ -52,12 +52,7 @@ const Header: React.FC = () => {
             <img
               src="/xpred-logo.png"
               alt="Xpred Logo"
-              className="w-full h-full object-contain hidden dark:block drop-shadow-[0_0_8px_rgba(109,74,255,0.3)]"
-            />
-            <img
-              src="/xpred-logo-color.png"
-              alt="Xpred Logo"
-              className="w-full h-full object-contain block dark:hidden drop-shadow-[0_0_8px_rgba(109,74,255,0.3)]"
+              className="h-full w-auto object-contain drop-shadow-[0_0_8px_rgba(109,74,255,0.3)]"
             />
           </div>
 
