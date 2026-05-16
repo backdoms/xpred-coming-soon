@@ -1,9 +1,15 @@
 import React from 'react';
 import { Sparkles } from 'lucide-react';
+import { useWaitlist } from '../context/WaitlistContext';
 
 const FAB: React.FC = () => {
+  const { openWaitlist } = useWaitlist();
+
   return (
-    <button className="fixed bottom-6 right-6 z-50 bg-white text-black p-4 rounded-full shadow-[0_0_30px_rgba(255,255,255,0.3)] hover:scale-110 transition-transform duration-300 group shadow-white/20">
+    <button
+      onClick={openWaitlist}
+      className="fixed bottom-6 right-6 z-50 bg-white text-black p-4 rounded-full shadow-[0_0_30px_rgba(255,255,255,0.3)] hover:scale-110 transition-transform duration-300 group shadow-white/20"
+    >
       <Sparkles className="w-6 h-6 group-hover:rotate-12 transition-transform text-brand-gold fill-brand-gold" />
       <span className="absolute right-0 top-0 flex h-3 w-3">
         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-gold opacity-75"></span>

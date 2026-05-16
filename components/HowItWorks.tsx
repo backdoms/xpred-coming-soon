@@ -1,8 +1,10 @@
 import React from 'react';
 import { Wallet, TrendingUp, Landmark } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useWaitlist } from '../context/WaitlistContext';
 
 const HowItWorks: React.FC = () => {
+    const { openWaitlist } = useWaitlist();
     return (
         <section id="how-it-works" className="py-32 bg-black relative overflow-hidden">
             {/* Background radial gradient */}
@@ -63,7 +65,10 @@ const HowItWorks: React.FC = () => {
                 </div>
 
                 <div className="mt-20 text-center">
-                    <button className="bg-brand-gold text-black px-10 py-4 rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-[0_0_40px_rgba(245,158,11,0.3)]">
+                    <button
+                        onClick={openWaitlist}
+                        className="bg-brand-gold text-black px-10 py-4 rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-[0_0_40px_rgba(245,158,11,0.3)]"
+                    >
                         Secure Your Spot
                     </button>
                     <p className="mt-4 text-xs text-gray-600">Be the first to know when we launch.</p>

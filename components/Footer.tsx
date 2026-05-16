@@ -31,7 +31,6 @@ const Footer: React.FC = () => {
               <h4 className="text-white font-bold mb-6">Platform</h4>
               <ul className="space-y-4 text-gray-500">
                 <li><Link to="/markets" className="hover:text-brand-gold cursor-pointer transition-colors">Live Markets</Link></li>
-                <li><Link to="/topup" className="hover:text-brand-gold cursor-pointer transition-colors">Top Up Xcoins</Link></li>
                 <li><Link to="/leaderboard" className="hover:text-brand-gold cursor-pointer transition-colors">Leaderboards</Link></li>
                 <li><Link to="/withdrawal-policy" className="hover:text-brand-gold cursor-pointer transition-colors">Withdrawal Policy</Link></li>
               </ul>

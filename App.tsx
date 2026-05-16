@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import Home from './pages/Home';
-import { LiveMarkets, TopUp, Leaderboard } from './pages/PlatformPages';
+import { LiveMarkets, Leaderboard } from './pages/PlatformPages';
 import {
   TermsOfService,
   PrivacyPolicy,
@@ -21,7 +21,6 @@ const App: React.FC = () => {
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="markets" element={<LiveMarkets />} />
-            <Route path="topup" element={<TopUp />} />
             <Route path="leaderboard" element={<Leaderboard />} />
             <Route path="terms" element={<TermsOfService />} />
             <Route path="privacy" element={<PrivacyPolicy />} />

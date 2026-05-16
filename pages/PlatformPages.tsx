@@ -1,21 +1,29 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { TrendingUp, Wallet, Trophy, Lock, ArrowUpRight, Coins } from 'lucide-react';
+import { useWaitlist } from '../context/WaitlistContext';
 
-const ComingSoonOverlay = () => (
-  <div className="absolute inset-0 bg-black/60 backdrop-blur-sm flex flex-col items-center justify-center z-20">
-    <div className="bg-[#151515] p-8 rounded-2xl border border-white/10 text-center max-w-sm mx-4">
-      <div className="w-12 h-12 bg-brand-gold/20 rounded-full flex items-center justify-center mx-auto mb-4">
-        <Lock size={24} className="text-brand-gold" />
+const ComingSoonOverlay = () => {
+  const { openWaitlist } = useWaitlist();
+
+  return (
+    <div className="absolute inset-0 bg-black/60 backdrop-blur-sm flex flex-col items-center justify-center z-20">
+      <div className="bg-[#151515] p-8 rounded-2xl border border-white/10 text-center max-w-sm mx-4">
+        <div className="w-12 h-12 bg-brand-gold/20 rounded-full flex items-center justify-center mx-auto mb-4">
+          <Lock size={24} className="text-brand-gold" />
+        </div>
+        <h3 className="text-xl font-bold text-white mb-2">Beta Access Required</h3>
+        <p className="text-gray-400 mb-6">This feature is currently available to invited beta testers only. Join the waitlist to get access.</p>
+        <button
+          onClick={openWaitlist}
+          className="bg-brand-gold text-black font-bold py-3 px-6 rounded-full w-full hover:scale-105 transition-transform"
+        >
+          Join Waitlist
+        </button>
       </div>
-      <h3 className="text-xl font-bold text-white mb-2">Beta Access Required</h3>
-      <p className="text-gray-400 mb-6">This feature is currently available to invited beta testers only. Join the waitlist to get access.</p>
-      <button className="bg-brand-gold text-black font-bold py-3 px-6 rounded-full w-full hover:scale-105 transition-transform">
-        Join Waitlist
-      </button>
     </div>
-  </div>
-);
+  );
+};
 
 export const LiveMarkets: React.FC = () => {
   return (
