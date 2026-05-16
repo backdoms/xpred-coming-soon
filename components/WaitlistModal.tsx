@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ArrowRight, CheckCircle2 } from 'lucide-react';
-import { supabase } from '../lib/supabaseClient';
+import { submitToWaitlist } from '../lib/waitlistApi';
 import { useWaitlist } from '../context/WaitlistContext';
 
 const WaitlistModal: React.FC = () => {
@@ -10,19 +10,7 @@ const WaitlistModal: React.FC = () => {
     const [loading, setLoading] = useState(false);
     const [submitted, setSubmitted] = useState(false);
     const [error, setError] = useState('');
-    const [queueStats, setQueueStats] = useState<{ rank: number; total: number } | null>(null);
-
-    const fetchQueueStatus = async (emailToCheck: string) => {
-        try {
-            const { data, error } = await supabase.rpc('get_waitlist_status', { email_input: emailToCheck });
-            if (error) throw error;
-            if (data && data.is_waitlisted) {
-                setQueueStats({ rank: data.rank, total: data.total });
-            }
-        } catch (err) {
-            console.error("Error fetching status:", err);
-        }
-    };
+    const [queuePosition, setQueuePosition] = useState<number | null>(null);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -32,18 +20,9 @@ const WaitlistModal: React.FC = () => {
         setError('');
 
         try {
-            const { error: insertError } = await supabase.from('waitlist').insert([{ email }]);
-            if (insertError) {
-                if (insertError.code === '23505') { // Unique violation
-                    await fetchQueueStatus(email);
-                    setSubmitted(true);
-                } else {
-                    throw insertError;
-                }
-            } else {
-                await fetchQueueStatus(email);
-                setSubmitted(true);
-            }
+            const data = await submitToWaitlist(email);
+            setQueuePosition(data.priority);
+            setSubmitted(true);
             setEmail('');
         } catch (err: any) {
             console.error('Error adding to waitlist:', err);
@@ -122,13 +101,12 @@ const WaitlistModal: React.FC = () => {
                                     <h2 className="text-2xl font-bold text-white mb-2">You're on the list!</h2>
                                     <p className="text-gray-400 mb-8 max-w-xs mx-auto">We'll notify you as soon as spots open up for your region.</p>
 
-                                    {queueStats && (
+                                    {queuePosition !== null && (
                                         <div className="bg-white/5 border border-white/10 rounded-2xl p-6 mb-6">
                                             <p className="text-gray-400 text-xs uppercase tracking-widest font-bold mb-2">Current Position</p>
                                             <div className="flex justify-center items-baseline gap-1">
-                                                <span className="text-4xl font-bold text-white">#{(queueStats.rank + 1000).toLocaleString()}</span>
+                                                <span className="text-4xl font-bold text-white">#{queuePosition.toLocaleString()}</span>
                                             </div>
-                                            <p className="text-xs text-gray-500 mt-2">out of {(queueStats.total + 1000).toLocaleString()} creators</p>
                                         </div>
                                     )}
 

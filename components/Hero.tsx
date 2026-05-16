@@ -1,43 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, CheckCircle2, ShieldCheck, Heart, MessageCircle, Share2, MoreHorizontal, UserPlus, TrendingUp } from 'lucide-react';
 import ParticlesBackground from './ParticlesBackground';
-import Countdown from './Countdown';
-import { supabase } from '../lib/supabaseClient';
+import { submitToWaitlist } from '../lib/waitlistApi';
 
 import { useWaitlist } from '../context/WaitlistContext';
 
 const Hero: React.FC = () => {
   const { openWaitlist } = useWaitlist();
-  // ... (props/state definition)
 
-  // ... inside Hero
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
-  const [queueStats, setQueueStats] = useState<{ rank: number; total: number } | null>(null);
-  const [totalWaitlist, setTotalWaitlist] = useState(0);
-
-  const fetchQueueStatus = async (emailToCheck: string) => {
-    try {
-      const { data, error } = await supabase.rpc('get_waitlist_status', { email_input: emailToCheck });
-      if (error) throw error;
-      if (data && data.is_waitlisted) {
-        setQueueStats({ rank: data.rank, total: data.total });
-      }
-      if (data && data.total) { // Update total even if not waitlisted (for general count)
-        setTotalWaitlist(data.total);
-      }
-    } catch (err) {
-      console.error("Error fetching status:", err);
-    }
-  };
-
-  useEffect(() => {
-    // Fetch total count on mount (passing dummy email to just get totals)
-    fetchQueueStatus('dummy_init_fetch');
-  }, []);
+  const [queuePosition, setQueuePosition] = useState<number | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,18 +23,9 @@ const Hero: React.FC = () => {
     setError('');
 
     try {
-      const { error: insertError } = await supabase.from('waitlist').insert([{ email }]);
-      if (insertError) {
-        if (insertError.code === '23505') { // Unique violation
-          await fetchQueueStatus(email);
-          setSubmitted(true);
-        } else {
-          throw insertError;
-        }
-      } else {
-        await fetchQueueStatus(email);
-        setSubmitted(true);
-      }
+      const data = await submitToWaitlist(email);
+      setQueuePosition(data.priority);
+      setSubmitted(true);
       setEmail('');
     } catch (err: any) {
       console.error('Error adding to waitlist:', err);
@@ -123,7 +90,7 @@ const Hero: React.FC = () => {
                   </div>
                   {error && <p className="text-red-400 text-xs mt-3 pl-2">{error}</p>}
                   <p className="text-gray-500 text-xs mt-4 pl-2">
-                    Join {(totalWaitlist + 1000).toLocaleString()} creators on the waitlist.
+                    Join thousands of creators on the waitlist.
                   </p>
                 </form>
               ) : (
@@ -132,8 +99,8 @@ const Hero: React.FC = () => {
                     <CheckCircle2 size={24} />
                   </div>
                   <h3 className="text-brand-gold font-bold text-lg mb-1">Spot Secured!</h3>
-                  {queueStats ? (
-                    <p className="text-white">You are <span className="font-bold">#{(queueStats.rank + 1000).toLocaleString()}</span> in line.</p>
+                  {queuePosition !== null ? (
+                    <p className="text-white">You are <span className="font-bold">#{queuePosition.toLocaleString()}</span> in line.</p>
                   ) : (
                     <p className="text-white">You have been added to the list.</p>
                   )}
