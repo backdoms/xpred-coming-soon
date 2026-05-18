@@ -8,19 +8,26 @@ export async function submitToWaitlist(email: string): Promise<WaitlistResponse>
   // Try to insert
   const { error: insertError } = await supabase.from('waitlist').insert([{ email }]);
 
-  if (insertError && insertError.code !== '23505') {
-    // Real error (not duplicate)
+  if (insertError) {
+    // If duplicate email, still count as success
+    if (insertError.code === '23505') {
+      // Get their position
+      const { count } = await supabase
+        .from('waitlist')
+        .select('*', { count: 'exact', head: true });
+      
+      return { priority: count || 0 };
+    }
+    console.error('Waitlist insert error:', insertError);
     throw new Error('Failed to join waitlist');
   }
 
-  // Get position (works for both new and existing signups)
-  const { data, error } = await supabase.rpc('get_waitlist_status', { email_input: email });
-
-  if (error) {
-    throw new Error('Failed to get waitlist status');
-  }
+  // Get total count as position
+  const { count } = await supabase
+    .from('waitlist')
+    .select('*', { count: 'exact', head: true });
 
   return {
-    priority: data?.rank || 0,
+    priority: count || 0,
   };
 }
