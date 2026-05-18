@@ -10,6 +10,7 @@ import {
   AMLPolicy,
   WithdrawalPolicy
 } from './pages/LegalPages';
+import Admin from './pages/Admin';
 
 import { WaitlistProvider } from './context/WaitlistContext';
 
@@ -27,6 +28,7 @@ const App: React.FC = () => {
             <Route path="responsible-gaming" element={<ResponsibleGaming />} />
             <Route path="aml-policy" element={<AMLPolicy />} />
             <Route path="withdrawal-policy" element={<WithdrawalPolicy />} />
+            <Route path="admin" element={<Admin />} />
           </Route>
         </Routes>
       </BrowserRouter>
