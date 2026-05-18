@@ -1,48 +1,26 @@
-const WAITLIST_ID = 22531; // Replace with your GetWaitlist.com waitlist ID
+import { supabase } from './supabaseClient';
 
-interface WaitlistSignupResponse {
-  email: string;
+export interface WaitlistResponse {
   priority: number;
-  referral_link: string;
-  referral_token: string;
-  uuid: string;
-  created_at: string;
-  amount_referred: number;
 }
 
-export async function submitToWaitlist(email: string): Promise<WaitlistSignupResponse> {
-  const response = await fetch('https://api.getwaitlist.com/api/v1/signup', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      email,
-      waitlist_id: WAITLIST_ID,
-    }),
-  });
+export async function submitToWaitlist(email: string): Promise<WaitlistResponse> {
+  // Try to insert
+  const { error: insertError } = await supabase.from('waitlist').insert([{ email }]);
 
-  if (!response.ok) {
+  if (insertError && insertError.code !== '23505') {
+    // Real error (not duplicate)
     throw new Error('Failed to join waitlist');
   }
 
-  return response.json();
-}
+  // Get position (works for both new and existing signups)
+  const { data, error } = await supabase.rpc('get_waitlist_status', { email_input: email });
 
-export async function getWaitlistStatus(email: string): Promise<WaitlistSignupResponse | null> {
-  const response = await fetch(
-    `https://api.getwaitlist.com/api/v1/signup?waitlist_id=${WAITLIST_ID}&email=${encodeURIComponent(email)}`,
-    {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }
-  );
-
-  if (!response.ok) {
-    return null;
+  if (error) {
+    throw new Error('Failed to get waitlist status');
   }
 
-  return response.json();
+  return {
+    priority: data?.rank || 0,
+  };
 }
